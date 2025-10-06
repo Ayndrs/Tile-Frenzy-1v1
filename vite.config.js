@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
     minify: 'esbuild',
     // Strip console/debugger in production builds
     // Note: has no effect in dev

@@ -2,10 +2,13 @@ import http from 'http'
 import { Server as IOServer } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
+const PORT = process.env.PORT || 3000
+const CORS_ORIGIN = process.env.CORS_ORIGIN || '*'
+
 const server = http.createServer((req, res) => {
   if (req.method === 'GET' && req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' })
-    res.end('Signaling server running — Socket.IO endpoint: http://' + (req.headers.host || 'localhost:3000'))
+    res.end('Signaling server running — Socket.IO endpoint: http://' + (req.headers.host || `localhost:${PORT}`))
     return
   }
   res.writeHead(404)
@@ -13,7 +16,7 @@ const server = http.createServer((req, res) => {
 })
 
 const io = new IOServer(server, {
-  cors: { origin: '*' }
+  cors: { origin: CORS_ORIGIN }
 })
 
 const lobbies = new Map()
@@ -111,4 +114,4 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(3000, () => console.log('Signaling server listening on http://localhost:3000 (Socket.IO)'))
+server.listen(PORT, () => console.log(`Signaling server listening on http://localhost:${PORT} (Socket.IO)`))
