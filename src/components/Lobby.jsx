@@ -18,19 +18,14 @@ export default function Lobby({ mode = 'create', socketUrl: socketUrlProp, onCon
 
   let socketUrl = socketUrlProp
   if (typeof socketUrl === 'undefined' && typeof window !== 'undefined') {
-    // For production, disable multiplayer if no server URL is provided
+    // Use Render server for production, localhost for development
     if (window.location.hostname !== 'localhost') {
-      console.log('No server URL provided, multiplayer disabled')
-      return <div style={{ padding: 8, background: 'rgba(0,0,0,0.6)', color: 'white', fontSize: 24 }}>
-        <div>Multiplayer is currently disabled.</div>
-        <div style={{ fontSize: 16, marginTop: 8, opacity: 0.8 }}>
-          To enable multiplayer, deploy the server to Railway and set the server URL.
-        </div>
-      </div>
+      socketUrl = 'https://tile-frenzy-1v1.onrender.com'
+    } else {
+      const proto = window.location.protocol === 'https:' ? 'https:' : 'http:'
+      const host = window.location.hostname || 'localhost'
+      socketUrl = `${proto}//${host}:3000`
     }
-    const proto = window.location.protocol === 'https:' ? 'https:' : 'http:'
-    const host = window.location.hostname || 'localhost'
-    socketUrl = `${proto}//${host}:3000`
   }
 
   const notifyPlayers = (nextPlayers) => {
