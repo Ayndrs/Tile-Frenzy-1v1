@@ -28,5 +28,3 @@ Open `http://localhost:5173` to play.
 **Practice:**
 1. "Practice" → adjust settings → "Start Practice"
 2. Press `Esc` to pause/access settings
-
-**Happy Aim Training!** 🎯
