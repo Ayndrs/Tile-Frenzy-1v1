@@ -10,7 +10,7 @@ import './styles/menu.css'
 import { useState } from 'react'
 
 export default function App() {
-  const [sensitivity, setSensitivity] = useState(1.0)
+  const [sensitivity, setSensitivity] = useState(0.5)
   const [fov, setFov] = useState(75)
   const [crosshair, setCrosshair] = useState({ size: 20, thickness: 1.5, gap: 4, color: '#00ff00', showDot: true })
   const [targetSize, setTargetSize] = useState(1.5)

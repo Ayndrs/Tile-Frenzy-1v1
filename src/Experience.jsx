@@ -20,6 +20,19 @@ export default function Experience({ sensitivity = 1.0, fov = 75, targetSize }) 
         }
     }, [camera])
 
+    // Reset camera position when game starts
+    useEffect(() => {
+        const onResetCam = () => {
+            camera.position.set(0, 6, -6)
+            camera.lookAt(0, 6, 1)
+            // Reset any rotation that might cause flicking
+            camera.rotation.set(0, 0, 0)
+        }
+        
+        window.addEventListener('aim:resetCamera', onResetCam)
+        return () => window.removeEventListener('aim:resetCamera', onResetCam)
+    }, [camera])
+
     useEffect(() => {
         try { camera.fov = fov; camera.updateProjectionMatrix() } catch {}
     }, [camera, fov])
@@ -256,7 +269,12 @@ export default function Experience({ sensitivity = 1.0, fov = 75, targetSize }) 
             })()}
 
             <Environment preset="city" />
-            <PointerLockControls pointerSpeed={sensitivity} />
+            <PointerLockControls 
+                pointerSpeed={sensitivity} 
+                maxPolarAngle={Math.PI * 0.8}
+                minPolarAngle={Math.PI * 0.2}
+                makeDefault
+            />
         </>
     )
 }

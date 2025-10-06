@@ -10,6 +10,18 @@ body,
     background: 'ivory';
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
+    cursor: none;
+}
+
+/* Prevent text selection and context menus that might interfere with pointer lock */
+canvas {
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Crosshair overlay */
