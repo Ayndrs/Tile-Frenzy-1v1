@@ -2,7 +2,10 @@
 
 A fast-paced multiplayer aim training game built with React Three Fiber and WebRTC.
 
-## Quick Start
+Game Link:
+https://tile-frenzy-1v1.vercel.app/
+
+## Quick Start (Local)
 
 ```bash
 # Install dependencies
