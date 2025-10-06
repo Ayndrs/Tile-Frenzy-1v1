@@ -1,0 +1,4 @@
+/* minimal lobby styles */
+.lobby { display:flex; flex-direction:column; gap:8px; margin-top:12px }
+.lobby input { padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#e6eef8 }
+.lobby button { padding:8px 10px; border-radius:6px; cursor:pointer }

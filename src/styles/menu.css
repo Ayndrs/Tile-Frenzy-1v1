@@ -1,0 +1,39 @@
+/* Menu styles */
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.8));
+  z-index: 10000;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.menu-btn {
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #e6eef8;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.menu-btn:hover { transform: translateY(-2px); }
+
+.menu-tip { font-size: 24px; color: white; }
+
+.settings-panel { margin-top: 12px; text-align: left;}
+.settings-label { display: block; margin-bottom: 8px; color: white; font-size: 24px;}
+.settings-range { width: 100%; }
+.settings-actions { margin-top: 10px; display:flex; justify-content:flex-end }
+
+.sensitivity-control { display:flex; align-items:center; gap:8px }
+.sensitivity-value { min-width:56px; text-align:center; color: white; }
+.small-btn { width:34px; height:34px; border:none; background: rgba(0, 0, 0, 0.5); color:#e6eef8; cursor:pointer }
+.small-btn:hover { filter:brightness(1.1) }

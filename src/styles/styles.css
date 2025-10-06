@@ -1,0 +1,66 @@
+html,
+body,
+#root
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 'ivory';
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Crosshair overlay */
+.crosshair {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--cross-size, 40px);
+    height: var(--cross-size, 40px);
+    pointer-events: none; /* click-through */
+    z-index: 9999;
+}
+
+.crosshair .ch {
+    position: absolute;
+    background: var(--cross-color, #00ff00);
+}
+
+/* vertical arms */
+.crosshair .ch-top,
+.crosshair .ch-bottom {
+    left: 50%;
+    width: var(--cross-thickness, 3px);
+    height: calc(var(--cross-half) - var(--cross-gap));
+    transform: translateX(-50%);
+}
+.crosshair .ch-top { top: 0; }
+.crosshair .ch-bottom { bottom: 0; }
+
+/* horizontal arms */
+.crosshair .ch-left,
+.crosshair .ch-right {
+    top: 50%;
+    height: var(--cross-thickness, 3px);
+    width: calc(var(--cross-half) - var(--cross-gap));
+    transform: translateY(-50%);
+}
+.crosshair .ch-left { left: 0; }
+.crosshair .ch-right { right: 0; }
+
+.crosshair .ch-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--cross-thickness, 3px) * 1.4);
+    height: calc(var(--cross-thickness, 3px) * 1.4);
+    background: var(--cross-color, #00ff00);
+    border-radius: 50%;
+}
+
+/* Optional: allow toggling visibility via .hidden class */
+.crosshair.hidden { display: none; }
