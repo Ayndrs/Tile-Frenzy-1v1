@@ -68,18 +68,40 @@ export default function GameMenu({ sensitivity = 0.35, setSensitivity = () => {}
       try { window.__aimTrainer?.peer?.send(JSON.stringify({ type: 'score', delta: points })) } catch {}
     }
     const onKeyDown = (e) => {
-      if (e.key === 'Escape' && !playing) {
-        if (document.pointerLockElement) return
-        setOverlayHidden((v) => !v)
-      } else if (e.key === 'Escape' && playing && isPracticeRun) {
-        setPracticePaused((p) => {
-          const next = !p
-          try { window.__aimTrainer = window.__aimTrainer || {}; window.__aimTrainer.paused = next } catch {}
-          if (next) {
-            try { document.exitPointerLock && document.exitPointerLock() } catch {}
-          }
-          return next
-        })
+      if (e.key === 'Escape') {
+        console.log('Escape pressed - playing:', playing, 'practicePaused:', practicePaused, 'isPracticeRun:', isPracticeRun)
+        
+        if (practicePaused && isPracticeRun) {
+          console.log('Resuming practice from pause screen')
+          setPracticePaused(false)
+          setPracticeShowSettings(false)
+          try { 
+            window.__aimTrainer = window.__aimTrainer || {}
+            window.__aimTrainer.paused = false 
+          } catch {}
+          try { 
+            document.body.requestPointerLock && document.body.requestPointerLock() 
+          } catch {}
+          return
+        }
+        
+        if (playing && isPracticeRun) {
+          console.log('Pausing practice mode')
+          setPracticePaused(true)
+          try { 
+            window.__aimTrainer = window.__aimTrainer || {}
+            window.__aimTrainer.paused = true 
+          } catch {}
+          try { 
+            document.exitPointerLock && document.exitPointerLock() 
+          } catch {}
+          return
+        }
+        
+        if (!playing) {
+          if (document.pointerLockElement) return
+          setOverlayHidden((v) => !v)
+        }
       }
     }
     const onLocalMiss = (e) => {
@@ -106,7 +128,7 @@ export default function GameMenu({ sensitivity = 0.35, setSensitivity = () => {}
       window.removeEventListener('keydown', onKeyDown)
       document.removeEventListener('pointerlockchange', onPointerLockChange)
     }
-  }, [playing])
+  }, [playing, practicePaused, isPracticeRun, practiceShowSettings])
 
   useEffect(() => {
     if (!playing) {
@@ -155,11 +177,12 @@ export default function GameMenu({ sensitivity = 0.35, setSensitivity = () => {}
               <>
                 <button className="menu-btn" onClick={handleCreate}>Create Game</button>
                 <button className="menu-btn" onClick={handleJoin}>Join Game</button>
-                  <button className="menu-btn" onClick={handlePractice}>{showPractice ? 'Back' : 'Practice'}</button>
+                <button className="menu-btn" onClick={handlePractice}>{showPractice ? 'Back' : 'Practice'}</button>
+                <button className="menu-btn" onClick={handleSettings}>Settings</button>
               </>
             )}
 
-            {showSettings && (
+            {showSettings && !lobbyMode && (
               <div className="settings-panel">
                 <div className="sensitivity-control">
                   <label className="settings-label">Sensitivity:</label>
@@ -203,10 +226,10 @@ export default function GameMenu({ sensitivity = 0.35, setSensitivity = () => {}
                     <label className="settings-label">Color:</label>
                     <input type="color" value={crosshair.color} onChange={(e) => setCrosshair({ ...crosshair, color: e.target.value })} style={{ marginLeft: 6 }} />
                   </div>
+                <button className="menu-btn" onClick={handleSettings}>Back</button>
               </div>
             )}
 
-            <button className="menu-btn" onClick={handleSettings}>{showSettings ? 'Back' : 'Settings'}</button>
           </div>
             )}
 

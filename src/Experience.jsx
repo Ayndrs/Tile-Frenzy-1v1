@@ -33,6 +33,20 @@ export default function Experience({ sensitivity = 1.0, fov = 75, targetSize }) 
         return () => window.removeEventListener('aim:resetCamera', onResetCam)
     }, [camera])
 
+    // Handle pointer lock state for cursor visibility
+    useEffect(() => {
+        const handlePointerLockChange = () => {
+            if (document.pointerLockElement) {
+                document.body.classList.add('pointer-locked')
+            } else {
+                document.body.classList.remove('pointer-locked')
+            }
+        }
+
+        document.addEventListener('pointerlockchange', handlePointerLockChange)
+        return () => document.removeEventListener('pointerlockchange', handlePointerLockChange)
+    }, [])
+
     useEffect(() => {
         try { camera.fov = fov; camera.updateProjectionMatrix() } catch {}
     }, [camera, fov])
@@ -271,8 +285,6 @@ export default function Experience({ sensitivity = 1.0, fov = 75, targetSize }) 
             <Environment preset="city" />
             <PointerLockControls 
                 pointerSpeed={sensitivity} 
-                maxPolarAngle={Math.PI * 0.8}
-                minPolarAngle={Math.PI * 0.2}
                 makeDefault
             />
         </>

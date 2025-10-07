@@ -10,7 +10,6 @@ body,
     background: 'ivory';
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
-    cursor: none;
 }
 
 /* Prevent text selection and context menus that might interfere with pointer lock */
@@ -22,6 +21,16 @@ canvas {
     user-select: none;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide cursor only when pointer is locked (during gameplay) */
+body:has(canvas:focus) {
+    cursor: none;
+}
+
+/* Alternative approach for browsers that don't support :has() */
+body.pointer-locked {
+    cursor: none;
 }
 
 /* Crosshair overlay */
