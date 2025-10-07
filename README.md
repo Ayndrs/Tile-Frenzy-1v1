@@ -1,5 +1,7 @@
 # Tile Frenzy 1v1 - Multiplayer Aim Trainer
 
+![Screenshot of the game](./public/game.png)
+
 A fast-paced multiplayer aim training game built with React Three Fiber and WebRTC.
 
 Game Link:
